@@ -39,8 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'dukaan',
     'rest_framework',
-    'drf_yasg'
-    
+    'drf_yasg',
+    'accounts'
 ]
 
 MIDDLEWARE = [
