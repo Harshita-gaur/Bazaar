@@ -41,17 +41,20 @@ class SizeVariant(TimeStamp):
         return self.size
      
 class Product(TimeStamp):
-    Title=models.CharField(max_length=50)
-    Price=models.FloatField(default=0)
+    title=models.CharField(max_length=50)
+    price=models.FloatField(default=0)
     slug =models.SlugField(null=True,unique=True)
     category =models.ForeignKey(Category,on_delete=models.PROTECT,related_name="category_products")
     desc=models.TextField()
     color= models.ManyToManyField(ColorVariant , blank=True)
     size = models.ManyToManyField(SizeVariant , blank=True)
-    image=models.ImageField(upload_to='products')
+    # image=models.ImageField(upload_to='products')
     def save(self,*args,**kwargs):
-        self.slug=slugify(self.Title)
+        self.slug=slugify(self.title)
         super(Product,self).save(*args,**kwargs)
     def __str__(self):
-        return self.Title
+        return self.title
         
+class ProductImage(TimeStamp):
+    product = models.ForeignKey(Product , on_delete=models.CASCADE , related_name="product_images")
+    image =  models.ImageField(upload_to="products")
